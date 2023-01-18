@@ -4,6 +4,8 @@ import "@babylonjs/loaders/glTF";
 import { Engine, Scene, Vector3, Color4, FreeCamera } from "@babylonjs/core";
 import { AdvancedDynamicTexture, Button, Control  } from "@babylonjs/gui";
 
+import { WilsonsMazeGenerator } from "./WilsonsMazeGenerator";
+
 class Main {
     private scene: Scene;
     private canvas: HTMLCanvasElement;
@@ -51,6 +53,10 @@ class Main {
         console.log("goToStart");
         this.engine.displayLoadingUI();
         this.scene.detachControl();
+
+        const maze = new WilsonsMazeGenerator(10, 10, 1);
+        maze.Initialize();
+        // maze.Generate();
 
         let scene = new Scene(this.engine);
         scene.clearColor = new Color4(0, 0, 0, 1);

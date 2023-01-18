@@ -1,7 +1,11 @@
-class WilsonsMazeGenerator extends MazeGenerator {
+import { MazeGenerator } from "./MazeGenerator";
+import { MapLocation } from "./MapLocation";
+
+export class WilsonsMazeGenerator extends MazeGenerator {
 
     constructor(width: number, height: number, scale: number) {
-        super(width, height, scale);
+        console.log("Wilson's Maze Generator");
+        super(width, height);
     }
     
     public Generate(): void {

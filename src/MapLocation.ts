@@ -1,4 +1,4 @@
-class MapLocation
+export class MapLocation
 {
     public _x: number;
     public _z: number;

@@ -1,22 +1,31 @@
-abstract class MazeGenerator {
+import { MapLocation } from "./MapLocation";
+
+export abstract class MazeGenerator {
 
     private width: number = 30;
     private depth: number = 30;
 
     public Map: number[][];
+
     constructor(width: number, height: number) {
+        console.log("Maze Generator")
         this.width = width;
         this.depth = height;
+        this.Map = [];
         this.Initialize();
     }
 
     public Initialize() {
+        console.log("Initializing map");
         for (let i = 0; i < this.width; i++) {
+            console.log("Initializing row " + i)
             this.Map[i] = [];
             for (let j = 0; j < this.depth; j++) {
+                console.log("Initializing column " + j)
                 this.Map[i][j] = 1;
             }
         }
+        console.log("Map initialized");
     }
 
     public CountSquareNeighbours(x: number, y: number): number {
