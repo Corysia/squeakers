@@ -1,0 +1,28 @@
+{
+  "name": "squeakers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "serve": "webpack serve --config webpack.config.dev.js",
+    "deploy": "sh deploy.sh",
+    "clean": "rm -rf dist node_modules",
+    "publish": "npm run clean && npm install && npm run deploy",
+    "archive": "sh archive.sh"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babylonjs/core": "^5.41.0",
+    "@babylonjs/inspector": "^5.41.0",
+    "copy-webpack-plugin": "^11.0.0",
+    "html-webpack-plugin": "^5.5.0",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.4",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  }
+}
