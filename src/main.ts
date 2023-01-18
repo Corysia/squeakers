@@ -75,6 +75,7 @@ class Main {
         startButton.onPointerUpObservable.add(() => {
             // Start the game
             console.log("startButton");
+            startButton.textBlock.text = "Loading...";
             scene.detachControl();
         });
 
