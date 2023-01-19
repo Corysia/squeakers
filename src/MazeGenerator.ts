@@ -8,7 +8,7 @@ export abstract class MazeGenerator {
     public Map: number[][];
 
     constructor(width: number, height: number) {
-        console.log("Maze Generator")
+        console.debug("Maze Generator")
         this.width = width;
         this.depth = height;
         this.Map = [];
@@ -16,16 +16,16 @@ export abstract class MazeGenerator {
     }
 
     public Initialize() {
-        console.log("Initializing map");
+        console.debug("Initializing map");
         for (let i = 0; i < this.width; i++) {
-            console.log("Initializing row " + i)
+            console.debug("Initializing row " + i)
             this.Map[i] = [];
             for (let j = 0; j < this.depth; j++) {
-                console.log("Initializing column " + j)
+                console.debug("Initializing column " + j)
                 this.Map[i][j] = 1;
             }
         }
-        console.log("Map initialized");
+        console.debug("Map initialized");
     }
 
     public CountSquareNeighbours(x: number, y: number): number {

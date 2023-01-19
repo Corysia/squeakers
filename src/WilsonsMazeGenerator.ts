@@ -4,7 +4,7 @@ import { MapLocation } from "./MapLocation";
 export class WilsonsMazeGenerator extends MazeGenerator {
 
     constructor(width: number, height: number, scale: number) {
-        console.log("Wilson's Maze Generator");
+        console.debug("Wilson's Maze Generator");
         super(width, height);
     }
     

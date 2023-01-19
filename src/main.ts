@@ -12,6 +12,7 @@ class Main {
     private engine: Engine;
 
     constructor() {
+        console.debug("Main");
         this.canvas = this.createCanvas();
 
         // initialize babylon scene and engine
@@ -42,21 +43,38 @@ class Main {
     }
 
     private async main(): Promise<void> {
-        await this.goToStart();
+        // await this.goToStart();
+        await this.generateMaze();
 
         this.engine.runRenderLoop(() => {
             this.scene.render();
         });
     }
 
-    private async goToStart() {
-        console.log("goToStart");
+    private async generateMaze() {
+        console.debug("generateMaze");
         this.engine.displayLoadingUI();
-        this.scene.detachControl();
-
         const maze = new WilsonsMazeGenerator(10, 10, 1);
         maze.Initialize();
         // maze.Generate();
+
+        let scene = new Scene(this.engine);
+        let camera = new FreeCamera("camera", new Vector3(0, 0, 0), scene);
+        camera.setTarget(Vector3.Zero());
+
+        await scene.whenReadyAsync();
+        this.engine.hideLoadingUI();
+        this.scene.dispose()
+        this.scene = scene;
+    }
+
+    // Not called for the moment while we are testing the maze generator
+    private async goToStart() {
+        console.debug("goToStart");
+        this.engine.displayLoadingUI();
+        this.scene.detachControl();
+
+
 
         let scene = new Scene(this.engine);
         scene.clearColor = new Color4(0, 0, 0, 1);
@@ -80,7 +98,7 @@ class Main {
 
         startButton.onPointerUpObservable.add(() => {
             // Start the game
-            console.log("startButton");
+            console.debug("startButton");
             startButton.textBlock.text = "Loading...";
             scene.detachControl();
         });
