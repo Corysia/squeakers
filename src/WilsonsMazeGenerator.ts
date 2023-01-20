@@ -1,6 +1,5 @@
 import { MazeGenerator } from "./MazeGenerator";
 import { MapLocation } from "./MapLocation";
-import { DirectionalLightFrustumViewer } from "@babylonjs/core";
 
 export class WilsonsMazeGenerator extends MazeGenerator {
 
@@ -16,21 +15,21 @@ export class WilsonsMazeGenerator extends MazeGenerator {
 
     public override Generate(): void {
         console.debug("Generate");
-        // let x = Math.floor(Math.random() * this.width - 1);
-        // let z = Math.floor(Math.random() * this.depth - 1);
-        // this.map[x][z] = 2;
+        // super.Generate();
+        let x = this.RandomRange(2, this.width - 2)
+        let z = this.RandomRange(2, this.depth - 2)
+        this.map[x][z] = 2;
 
-        // while (this.GetAvailableCells() > 0 && this.stalemateCount < 10) {
-        //     this.RandomWalk();
-        // }
-        super.Generate();
+        while (this.GetAvailableCells() > 0 && this.stalemateCount < 10) {
+            this.RandomWalk();
+        }
     }
     
     private GetAvailableCells(): number {
         this.potentialStart = [];
         for (let x = 1; x < this.width - 1; x++) {
             for (let z = 1; z < this.depth - 1; z++) {
-                if (this.map[x][z] == 0) {
+                if (this.CountSquareMazeNeighbors(x, z) == 0) {
                     this.potentialStart.push(new MapLocation(x, z));
                 }
             }
@@ -52,7 +51,7 @@ export class WilsonsMazeGenerator extends MazeGenerator {
 
     RandomWalk(): void {
         const inWalk: MapLocation[] = [];
-        const startIndex = Math.floor(Math.random() * this.potentialStart.length);
+        const startIndex = this.RandomRange(0, this.potentialStart.length - 1);
         let x = this.potentialStart[startIndex].X;
         let z = this.potentialStart[startIndex].Z;
         inWalk.push(new MapLocation(x, z));
@@ -65,7 +64,8 @@ export class WilsonsMazeGenerator extends MazeGenerator {
             if (!this.withRooms && this.CountSquareMazeNeighbors(x, z) > 1) {
                 break;
             }
-            const randomDirection = Math.floor(Math.random() * this.directions.length);
+
+            const randomDirection = this.RandomRange(0, this.directions.length - 1);
             const newX = x + this.directions[randomDirection].X;
             const newZ = z + this.directions[randomDirection].Z;
             if (this.CountSquareNeighbors(newX, newZ) < 2) {
@@ -76,7 +76,6 @@ export class WilsonsMazeGenerator extends MazeGenerator {
             validPath = this.CountSquareMazeNeighbors(x, z) == 1;
             loop++;
         }
-        console.debug("Loop: " + loop);
         if (validPath) {
             this.map[x][z] = 0;
             for (let i = 0; i < inWalk.length; i++) {
@@ -89,5 +88,9 @@ export class WilsonsMazeGenerator extends MazeGenerator {
             }
             this.stalemateCount++;
         }
+    }
+
+    private RandomRange(min: number, max: number): number {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 }

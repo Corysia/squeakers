@@ -4,7 +4,6 @@ export class MapLocation
     private z: number;
     
     constructor(x: number, z: number) {
-        console.debug("Map Location")
         this.x = x;
         this.z = z;
     }

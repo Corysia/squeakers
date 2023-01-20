@@ -10,10 +10,10 @@ export abstract class MazeGenerator implements Drawable {
 
     protected map: number[][];
     protected directions: MapLocation[] = [
-        new MapLocation(0, -1),
         new MapLocation(1, 0),
         new MapLocation(0, 1),
-        new MapLocation(-1, 0)
+        new MapLocation(-1, 0),
+        new MapLocation(0, -1)
     ];
 
     constructor(width: number, height: number, scale: number) {
@@ -47,30 +47,31 @@ export abstract class MazeGenerator implements Drawable {
 
     public Initialize() {
         console.debug("Initializing map");
-        for (let i = 0; i < this.width; i++) {
-            this.map[i] = [];
-            for (let j = 0; j < this.depth; j++) {
-                this.map[i][j] = 1;
+        for (let x = 0; x < this.width; x++) {
+            this.map[x] = [];
+            for (let z = 0; z < this.depth; z++) {
+                this.map[x][z] = 1; // 1 = wall, 0 = path
             }
         }
-        console.debug("map initialized");
     }
 
-    public CountSquareNeighbors(x: number, y: number): number {
+    public CountSquareNeighbors(x: number, z: number): number {
         let count = 0;
-        if (this.map[x - 1][y] == 1) count++;
-        if (this.map[x + 1][y] == 1) count++;
-        if (this.map[x][y - 1] == 1) count++;
-        if (this.map[x][y + 1] == 1) count++;
+        if (x <= 0 || x >= this.width - 1 || z <= 0 || z >= this.depth - 1) return 5;
+        if (this.map[x - 1][z] == 0) count++;
+        if (this.map[x + 1][z] == 0) count++;
+        if (this.map[x][z - 1] == 0) count++;
+        if (this.map[x][z + 1] == 0) count++;
         return count;
     }
 
-    public CountDiagonalNeighbors(x: number, y: number): number {
+    public CountDiagonalNeighbors(x: number, z: number): number {
         let count = 0;
-        if (this.map[x - 1][y - 1] == 1) count++;
-        if (this.map[x + 1][y - 1] == 1) count++;
-        if (this.map[x - 1][y + 1] == 1) count++;
-        if (this.map[x + 1][y + 1] == 1) count++;
+        if (x <= 0 || x >= this.width - 1 || z <= 0 || z >= this.depth - 1) return 5;
+        if (this.map[x - 1][z - 1] == 0) count++;
+        if (this.map[x + 1][z - 1] == 0) count++;
+        if (this.map[x - 1][z + 1] == 0) count++;
+        if (this.map[x + 1][z + 1] == 0) count++;
         return count;
     }
 

@@ -28,7 +28,7 @@ class Main {
         console.debug("generateMaze");
         const engine = this.sceneManager.Engine;
         engine.displayLoadingUI();
-        const maze = new WilsonsMazeGenerator(30, 30, 6);
+        const maze = new WilsonsMazeGenerator(30, 30, 6, true);
         maze.Generate();
 
         let scene = new Scene(engine);
