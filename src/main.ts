@@ -12,7 +12,7 @@ class Main {
 
     constructor() {
         console.debug("Main");
-        this.sceneManager = SceneManager.instance;
+        this.sceneManager = SceneManager.Instance;
         this.main().catch((err) => {
             console.error(err);
         });
@@ -20,28 +20,29 @@ class Main {
 
     private async main(): Promise<void> {
         // await this.goToStart();
-        await this.generateMaze();
-        SceneManager.instance.StartRenderLoop();
+        await this.GenerateMaze();
+        this.sceneManager.StartRenderLoop();
     }
 
-    private async generateMaze() {
+    private async GenerateMaze() {
         console.debug("generateMaze");
         const engine = this.sceneManager.Engine;
         engine.displayLoadingUI();
         const maze = new WilsonsMazeGenerator(30, 30, 6);
-        maze.Initialize();
         maze.Generate();
 
         let scene = new Scene(engine);
-        let camera = new FreeCamera("camera", new Vector3(0, 50, -50), scene);
-        const hemisphericLight = scene.createDefaultLight(true);
-        camera.setTarget(Vector3.Zero());
+        let camera = new FreeCamera("camera", new Vector3(-50, 50, -50), scene);
+        camera.setTarget(new Vector3(maze.Width * maze.Scale / 2, 0, maze.Depth * maze.Scale / 2));
         camera.attachControl(this.sceneManager.Canvas, true);
+        
+        const hemisphericLight = scene.createDefaultLight(true);
+
         maze.Draw(scene);
 
         await scene.whenReadyAsync();
         engine.hideLoadingUI();
-        SceneManager.instance.currentScene = scene;
+        this.sceneManager.Scene = scene;
     }
 }
 new Main();

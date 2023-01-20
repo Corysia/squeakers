@@ -21,7 +21,12 @@ Try it here: [Squeakers](https://corysia.github.io/squeakers/)
 
 ## How to play
 
-TBD
+Currently, you can only visualize the maze and move the camera around.
+
+Controls:
+
+- Arrow keys to move
+- Left click and drag the mouse to pan the camera
 
 ## How to build
 

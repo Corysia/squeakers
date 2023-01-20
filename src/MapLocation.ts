@@ -1,11 +1,19 @@
 export class MapLocation
 {
-    public _x: number;
-    public _z: number;
+    private x: number;
+    private z: number;
     
     constructor(x: number, z: number) {
         console.debug("Map Location")
-        this._x = x;
-        this._z = z;
+        this.x = x;
+        this.z = z;
+    }
+    
+    public get X(): number {
+        return this.x;
+    }
+
+    public get Z(): number { 
+        return this.z;
     }
 }

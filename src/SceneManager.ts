@@ -1,16 +1,16 @@
 import { Scene, Engine } from "@babylonjs/core";
 
 export class SceneManager {
-    private static _instance: SceneManager;
-    private _scene: Scene;
+    private static instance: SceneManager;
+    private scene: Scene;
     private canvas: HTMLCanvasElement;
     private engine: Engine;
 
-    public static get instance(): SceneManager {
-        if (!SceneManager._instance) {
-            SceneManager._instance = new SceneManager();
+    public static get Instance(): SceneManager {
+        if (!SceneManager.instance) {
+            SceneManager.instance = new SceneManager();
         }
-        return SceneManager._instance;
+        return SceneManager.instance;
     }
 
     public get Canvas(): HTMLCanvasElement {
@@ -21,21 +21,21 @@ export class SceneManager {
         return this.engine;
     }
 
-    public get currentScene(): Scene {
-        return this._scene;
+    public get Scene(): Scene {
+        return this.scene;
     }
 
-    public set currentScene(scene: Scene) {
-        if (this._scene) {
-            this._scene.dispose();
+    public set Scene(scene: Scene) {
+        if (this.scene) {
+            this.scene.dispose();
         }
-        this._scene = scene;
+        this.scene = scene;
     }
 
     private constructor() {
-        this.canvas = this.createCanvas();
+        this.canvas = this.CreateCanvas();
         this.engine = new Engine(this.canvas, true);
-        this._scene = new Scene(this.engine);
+        this.scene = new Scene(this.engine);
 
         // handle the browser's resize
         window.addEventListener("resize", () => {
@@ -47,16 +47,16 @@ export class SceneManager {
             // Shift+Ctrl+Alt+I
             // keyCode 73 = I, need to use this because ev.key === "I" doesn't work on a Mac
             if (ev.shiftKey && ev.ctrlKey && ev.altKey && ev.keyCode === 73) {
-                if (this._scene.debugLayer.isVisible()) {
-                    this._scene.debugLayer.hide();
+                if (this.scene.debugLayer.isVisible()) {
+                    this.scene.debugLayer.hide();
                 } else {
-                    this._scene.debugLayer.show();
+                    this.scene.debugLayer.show();
                 }
             }
         });
     }
 
-    private createCanvas(): HTMLCanvasElement {
+    private CreateCanvas(): HTMLCanvasElement {
         var canvas = document.createElement("canvas");
         canvas.style.width = "100%";
         canvas.style.height = "100%";
@@ -67,11 +67,11 @@ export class SceneManager {
 
     public StartRenderLoop() {
         this.engine.runRenderLoop(() => {
-            this._scene.render();
+            this.scene.render();
         });
     }
 
     public static dispose() {
-        SceneManager._instance = null;
+        SceneManager.instance = null;
     }
 }
