@@ -1,6 +1,9 @@
 import { MapLocation } from "./MapLocation";
+import { Drawable } from "./Drawable";
+import { SceneManager } from "./SceneManager";
+import { CreateBox, Vector3 } from "@babylonjs/core";
 
-export abstract class MazeGenerator {
+export abstract class MazeGenerator implements Drawable {
 
     private width: number = 30;
     private depth: number = 30;
@@ -13,6 +16,14 @@ export abstract class MazeGenerator {
         this.depth = height;
         this.Map = [];
         this.Initialize();
+    }
+
+    Draw(): void {
+        console.debug("Draw");
+        const scene = SceneManager.instance.currentScene;
+        const box = CreateBox("box", { size: 1 }, scene);
+        box.position = new Vector3(0, 0, 0);
+        scene.addMesh(box);
     }
 
     public Initialize() {
