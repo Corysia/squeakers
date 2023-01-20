@@ -1,6 +1,7 @@
 import { MapLocation } from "./MapLocation";
 import { Drawable } from "./Drawable";
 import { CreateBox, Vector3, Scene, MeshBuilder } from "@babylonjs/core";
+import { bonesDeclaration } from "@babylonjs/core/Shaders/ShadersInclude/bonesDeclaration";
 
 export abstract class MazeGenerator implements Drawable {
 
@@ -27,14 +28,16 @@ export abstract class MazeGenerator implements Drawable {
         const offset = 0.5 * this.scale;
         const ground = MeshBuilder.CreateGround('ground', { width: this.width * this.scale, height: this.depth * this.scale }, scene);
         ground.position = new Vector3(this.width * this.scale / 2 - offset, 0, this.depth * this.scale / 2 - offset);
+        const box = CreateBox("box", { size: 1 }, scene);
+        box.isVisible = false;
+        scene.addMesh(box);
 
         for (let i = 0; i < this.width; i++) {
             for (let j = 0; j < this.depth; j++) {
                 if (this.Map[i][j] == 1) {
-                    const box = CreateBox("box", { size: 1 }, scene);
-                    box.position = new Vector3(i * this.scale, offset, j * this.scale);
-                    box.scaling = new Vector3(this.scale, this.scale, this.scale);
-                    scene.addMesh(box);
+                    let instance = box.createInstance("box" + i + j);
+                    instance.position = new Vector3(i * this.scale, offset, j * this.scale);
+                    instance.scaling = new Vector3(this.scale, this.scale, this.scale);
                 }
             }
         }
