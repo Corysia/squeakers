@@ -5,12 +5,9 @@ export class WilsonsMazeGenerator extends MazeGenerator {
 
     constructor(width: number, height: number, scale: number) {
         console.debug("Wilson's Maze Generator");
-        super(width, height);
+        super(width, height, scale);
     }
     
-    public Generate(): void {
-        throw new Error("Method not implemented.");
-    }
     public GetMap(): number[][] {
         throw new Error("Method not implemented.");
     }

@@ -1,29 +1,43 @@
 import { MapLocation } from "./MapLocation";
 import { Drawable } from "./Drawable";
-import { SceneManager } from "./SceneManager";
-import { CreateBox, Vector3 } from "@babylonjs/core";
+import { CreateBox, Vector3, Scene, MeshBuilder } from "@babylonjs/core";
 
 export abstract class MazeGenerator implements Drawable {
 
     private width: number = 30;
     private depth: number = 30;
+    private scale: number = 1;
 
     public Map: number[][];
 
-    constructor(width: number, height: number) {
+    constructor(width: number, height: number, scale: number) {
         console.debug("Maze Generator")
         this.width = width;
         this.depth = height;
+        this.scale = scale;
         this.Map = [];
         this.Initialize();
     }
 
-    Draw(): void {
+    Draw(scene: Scene): void {
         console.debug("Draw");
-        const scene = SceneManager.instance.currentScene;
-        const box = CreateBox("box", { size: 1 }, scene);
-        box.position = new Vector3(0, 0, 0);
-        scene.addMesh(box);
+        // const box = CreateBox("box", { size: 1 }, scene);
+        // box.position = new Vector3(0, 0, 0);
+        // scene.addMesh(box);
+        const offset = 0.5 * this.scale;
+        const ground = MeshBuilder.CreateGround('ground', { width: this.width * this.scale, height: this.depth * this.scale }, scene);
+        ground.position = new Vector3(this.width * this.scale / 2 - offset, 0, this.depth * this.scale / 2 - offset);
+
+        for (let i = 0; i < this.width; i++) {
+            for (let j = 0; j < this.depth; j++) {
+                if (this.Map[i][j] == 1) {
+                    const box = CreateBox("box", { size: 1 }, scene);
+                    box.position = new Vector3(i * this.scale, offset, j * this.scale);
+                    box.scaling = new Vector3(this.scale, this.scale, this.scale);
+                    scene.addMesh(box);
+                }
+            }
+        }
     }
 
     public Initialize() {
@@ -61,7 +75,16 @@ export abstract class MazeGenerator implements Drawable {
         return this.CountSquareNeighbours(x, y) + this.CountDiagonalNeighbours(x, y);
     }
 
-    public abstract Generate(): void;
+    // Randomly remove walls (not a good maze algorithm, don't use this)
+    public Generate(): void {
+        for (let i = 0; i < this.width; i++) {
+            for (let j = 0; j < this.depth; j++) {
+                if (Math.floor(Math.random() * 100) < 50) {
+                    this.Map[i][j] = 0; // 1 = wall, 0 = path
+                }
+            }
+        }
+    }
 
     public abstract GetMap(): number[][];
 

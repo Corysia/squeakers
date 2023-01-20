@@ -1,3 +1,5 @@
+import { Scene } from "@babylonjs/core";
+
 export interface Drawable {
-    Draw(): void;
+    Draw(scene: Scene): void;
 }

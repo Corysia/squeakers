@@ -1,16 +1,18 @@
 import "@babylonjs/core/Debug/debugLayer";
 import "@babylonjs/inspector";
 import "@babylonjs/loaders/glTF";
-import { Engine, Scene, Vector3, Color4, FreeCamera } from "@babylonjs/core";
+import { Scene, Vector3, FreeCamera } from "@babylonjs/core";
 
 import { SceneManager } from "./SceneManager";
 import { WilsonsMazeGenerator } from "./WilsonsMazeGenerator";
 
 class Main {
 
+    private sceneManager: SceneManager;
+
     constructor() {
         console.debug("Main");
-
+        this.sceneManager = SceneManager.instance;
         this.main().catch((err) => {
             console.error(err);
         });
@@ -23,22 +25,23 @@ class Main {
     }
 
     private async generateMaze() {
-        const sceneManager = SceneManager.instance;
         console.debug("generateMaze");
-        sceneManager.Engine.displayLoadingUI();
-        const maze = new WilsonsMazeGenerator(10, 10, 1);
+        const engine = this.sceneManager.Engine;
+        engine.displayLoadingUI();
+        const maze = new WilsonsMazeGenerator(30, 30, 6);
         maze.Initialize();
-        // maze.Generate();
+        maze.Generate();
 
-        let scene = new Scene(sceneManager.Engine);
-        let camera = new FreeCamera("camera", new Vector3(0, 5, -10), scene);
+        let scene = new Scene(engine);
+        let camera = new FreeCamera("camera", new Vector3(0, 50, -50), scene);
+        const hemisphericLight = scene.createDefaultLight(true);
         camera.setTarget(Vector3.Zero());
-        camera.attachControl(sceneManager.Canvas, true);
+        camera.attachControl(this.sceneManager.Canvas, true);
+        maze.Draw(scene);
 
         await scene.whenReadyAsync();
-        sceneManager.Engine.hideLoadingUI();
+        engine.hideLoadingUI();
         SceneManager.instance.currentScene = scene;
-        maze.Draw();
     }
 }
 new Main();
