@@ -34,6 +34,7 @@ class Main {
         let scene = new Scene(engine);
         let camera = new FreeCamera("camera", new Vector3(-50, 50, -50), scene);
         camera.setTarget(new Vector3(maze.Width * maze.Scale / 2, 0, maze.Depth * maze.Scale / 2));
+        camera.checkCollisions = true;
         camera.attachControl(this.sceneManager.Canvas, true);
         
         // const hemisphericLight = scene.createDefaultLight(true);
