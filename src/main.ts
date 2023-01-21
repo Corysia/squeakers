@@ -1,7 +1,7 @@
 import "@babylonjs/core/Debug/debugLayer";
 import "@babylonjs/inspector";
 import "@babylonjs/loaders/glTF";
-import { Scene, Vector3, FreeCamera } from "@babylonjs/core";
+import { Scene, Vector3, FreeCamera, HemisphericLight } from "@babylonjs/core";
 
 import { SceneManager } from "./SceneManager";
 import { WilsonsMazeGenerator } from "./WilsonsMazeGenerator";
@@ -36,7 +36,9 @@ class Main {
         camera.setTarget(new Vector3(maze.Width * maze.Scale / 2, 0, maze.Depth * maze.Scale / 2));
         camera.attachControl(this.sceneManager.Canvas, true);
         
-        const hemisphericLight = scene.createDefaultLight(true);
+        // const hemisphericLight = scene.createDefaultLight(true);
+        const hemiLight: HemisphericLight = new HemisphericLight('hemiLight', new Vector3(1, .5, 0), scene);
+        hemiLight.intensity = 0.7;
 
         maze.Draw(scene);
 
