@@ -4,7 +4,6 @@ import "@babylonjs/loaders/glTF";
 import { Scene, Vector3, FreeCamera, HemisphericLight } from "@babylonjs/core";
 
 import { SceneManager } from "./SceneManager";
-import { WilsonsMazeGenerator } from "./WilsonsMazeGenerator";
 import { Backtracker } from "./Backtracker";
 
 class Main {
@@ -29,7 +28,7 @@ class Main {
         console.debug("generateMaze");
         const engine = this.sceneManager.Engine;
         engine.displayLoadingUI();
-        const maze = new WilsonsMazeGenerator(30, 30, 6, true);
+        const maze = new Backtracker(30, 30, 6);
         maze.Generate();
 
         let scene = new Scene(engine);
