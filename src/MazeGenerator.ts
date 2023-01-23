@@ -18,6 +18,11 @@ export abstract class MazeGenerator implements Drawable {
 
     constructor(width: number, height: number, scale: number) {
         console.debug("Maze Generator")
+        // Sanity check - make sure the width and height are within the bounds
+        if (width < 6) width = 6;
+        if (width > 200) width = 200;
+        if (height < 6) height = 6;
+        if (height > 200) height = 200;
         this.width = width;
         this.depth = height;
         this.scale = scale;

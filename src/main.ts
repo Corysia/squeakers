@@ -5,6 +5,7 @@ import { Scene, Vector3, FreeCamera, HemisphericLight } from "@babylonjs/core";
 
 import { SceneManager } from "./SceneManager";
 import { WilsonsMazeGenerator } from "./WilsonsMazeGenerator";
+import { Backtracker } from "./Backtracker";
 
 class Main {
 
