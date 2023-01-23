@@ -1,5 +1,6 @@
 import { MazeGenerator } from "./MazeGenerator";
 import { MapLocation } from "./MapLocation";
+import { MathUtil } from "./MathUtil";
 
 export class WilsonsMazeGenerator extends MazeGenerator {
 
@@ -16,8 +17,8 @@ export class WilsonsMazeGenerator extends MazeGenerator {
     public override Generate(): void {
         console.debug("Generate");
         // super.Generate();
-        let x = this.RandomRange(2, this.width - 2)
-        let z = this.RandomRange(2, this.depth - 2)
+        let x = MathUtil.RandomRange(2, this.width - 2)
+        let z = MathUtil.RandomRange(2, this.depth - 2)
         this.map[x][z] = 2;
 
         while (this.GetAvailableCells() > 0 && this.stalemateCount < 10) {
@@ -51,7 +52,7 @@ export class WilsonsMazeGenerator extends MazeGenerator {
 
     RandomWalk(): void {
         const inWalk: MapLocation[] = [];
-        const startIndex = this.RandomRange(0, this.potentialStart.length - 1);
+        const startIndex = MathUtil.RandomRange(0, this.potentialStart.length - 1);
         let x = this.potentialStart[startIndex].X;
         let z = this.potentialStart[startIndex].Z;
         inWalk.push(new MapLocation(x, z));
@@ -65,7 +66,7 @@ export class WilsonsMazeGenerator extends MazeGenerator {
                 break;
             }
 
-            const randomDirection = this.RandomRange(0, this.directions.length - 1);
+            const randomDirection = MathUtil.RandomRange(0, this.directions.length - 1);
             const newX = x + this.directions[randomDirection].X;
             const newZ = z + this.directions[randomDirection].Z;
             if (this.CountSquareNeighbors(newX, newZ) < 2) {
@@ -88,9 +89,5 @@ export class WilsonsMazeGenerator extends MazeGenerator {
             }
             this.stalemateCount++;
         }
-    }
-
-    private RandomRange(min: number, max: number): number {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 }
