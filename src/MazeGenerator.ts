@@ -16,6 +16,8 @@ export abstract class MazeGenerator implements Drawable {
         new MapLocation(0, -1)
     ];
 
+    protected startLocation: MapLocation = new MapLocation(0, 0);
+
     constructor(width: number, height: number, scale: number) {
         console.debug("Maze Generator")
         // Sanity check - make sure the width and height are within the bounds
@@ -102,10 +104,6 @@ export abstract class MazeGenerator implements Drawable {
         }
     }
 
-    public get Zap(): number[][] {
-        return this.map;
-    }
-
     public get Width(): number {
         return this.width;
     }
@@ -116,5 +114,9 @@ export abstract class MazeGenerator implements Drawable {
 
     public get Scale(): number {
         return this.scale;
+    }
+
+    public get StartingLocation(): Vector3 {
+        return new Vector3(this.startLocation.X * this.scale, 0, this.startLocation.Z * this.scale);
     }
 }

@@ -5,6 +5,7 @@ import { Scene, Vector3, FreeCamera, HemisphericLight } from "@babylonjs/core";
 
 import { SceneManager } from "./SceneManager";
 import { Backtracker } from "./Backtracker";
+import { FirstPersonController } from "./FirstPersonController";
 
 class Main {
 
@@ -32,12 +33,14 @@ class Main {
         maze.Generate();
 
         let scene = new Scene(engine);
-        let camera = new FreeCamera("camera", new Vector3(-50, 50, -50), scene);
-        camera.setTarget(new Vector3(maze.Width * maze.Scale / 2, 0, maze.Depth * maze.Scale / 2));
-        camera.checkCollisions = true;
-        camera.attachControl(this.sceneManager.Canvas, true);
+        // let camera = new FreeCamera("camera", new Vector3(-50, 50, -50), scene);
+        // let camera = new FreeCamera("camera", new Vector3(10, 10, 10), scene);
+        // camera.applyGravity = true;
+        // camera.setTarget(new Vector3(maze.Width * maze.Scale / 2, 0, maze.Depth * maze.Scale / 2));
+        // camera.checkCollisions = true;
+        // camera.attachControl(this.sceneManager.Canvas, true);
         
-        // const hemisphericLight = scene.createDefaultLight(true);
+
         const hemiLight: HemisphericLight = new HemisphericLight('hemiLight', new Vector3(1, .5, 0), scene);
         hemiLight.intensity = 0.7;
 
@@ -46,6 +49,7 @@ class Main {
         await scene.whenReadyAsync();
         engine.hideLoadingUI();
         this.sceneManager.Scene = scene;
+        const firstPersonController = new FirstPersonController(new Vector3(maze.StartingLocation._x, 2, maze.StartingLocation._z));
     }
 }
 new Main();

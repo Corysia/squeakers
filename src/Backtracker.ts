@@ -1,3 +1,4 @@
+import { MapLocation } from "./MapLocation";
 import { MathUtil } from "./MathUtil";
 import { MazeGenerator } from "./MazeGenerator";
 
@@ -7,7 +8,10 @@ export class Backtracker extends MazeGenerator {
     }
 
     public override Generate(): void {
-        this.GenerateMaze(MathUtil.RandomRange(2, this.width - 2), MathUtil.RandomRange(2, this.depth - 2));
+        const x = MathUtil.RandomRange(2, this.width - 2);
+        const z = MathUtil.RandomRange(2, this.depth - 2);
+        this.startLocation = new MapLocation(x, z);
+        this.GenerateMaze(this.startLocation.X, this.startLocation.Z);
     }
 
     private GenerateMaze(x: number, z: number): void {

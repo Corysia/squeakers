@@ -19,6 +19,7 @@ export class WilsonsMazeGenerator extends MazeGenerator {
         // super.Generate();
         let x = MathUtil.RandomRange(2, this.width - 2)
         let z = MathUtil.RandomRange(2, this.depth - 2)
+        this.startLocation = new MapLocation(x, z);
         this.map[x][z] = 2;
 
         while (this.GetAvailableCells() > 0 && this.stalemateCount < 10) {
