@@ -53,6 +53,10 @@ export class SceneManager {
                     this.scene.debugLayer.show();
                 }
             }
+            if (ev.shiftKey && ev.ctrlKey && ev.altKey && ev.keyCode === 70) { // shift-ctrl-alt-F
+                this.engine.switchFullscreen(!this.engine.isFullscreen);
+            }
+                
         });
     }
 

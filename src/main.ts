@@ -1,7 +1,7 @@
 import "@babylonjs/core/Debug/debugLayer";
 import "@babylonjs/inspector";
 import "@babylonjs/loaders/glTF";
-import { Scene, Vector3, FreeCamera, HemisphericLight } from "@babylonjs/core";
+import { Scene, Vector3, HemisphericLight } from "@babylonjs/core";
 
 import { SceneManager } from "./SceneManager";
 import { Backtracker } from "./Backtracker";
