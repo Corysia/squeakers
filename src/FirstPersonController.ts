@@ -65,7 +65,10 @@ export class FirstPersonController {
 
     private PointerLock(): void {
         this.scene.onPointerDown = (evt) => {
-            if (evt.button === 1) { // left mouse
+            // evt.button === 0 is the left mouse button
+            // evt.button === 1 is the middle mouse button
+            // evt.button === 2 is the right mouse button
+            if (evt.button === 2) {
                 SceneManager.Instance.Engine.enterPointerlock();
             // } else if (evt.button === 1) { // middle mouse
             //     SceneManager.Instance.Engine.exitPointerlock();
@@ -73,7 +76,7 @@ export class FirstPersonController {
         };
 
         this.scene.onPointerUp = (evt) => {
-            if (evt.button === 1) { // left mouse
+            if (evt.button === 2) {
                 SceneManager.Instance.Engine.exitPointerlock();
             }
         }
