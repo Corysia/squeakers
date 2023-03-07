@@ -54,7 +54,7 @@ export class SceneManager {
                 }
             }
             // shift-ctrl-alt-F
-            if (ev.shiftKey && ev.ctrlKey && ev.altKey && ev.keyCode === 70) {
+            if (ev.shiftKey && ev.keyCode === 70) {
                 this.engine.switchFullscreen(false);
             }
 

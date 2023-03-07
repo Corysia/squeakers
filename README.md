@@ -25,8 +25,9 @@ Currently, you can only visualize the maze and move the camera around.
 
 Controls:
 
-- Arrow keys to move
-- Left click and drag the mouse to pan the camera
+- WASD or Arrow keys to move
+- Right click and drag the mouse to pan the camera
+- Shift-F to toggle Fullscreen mode
 
 ## How to build
 
