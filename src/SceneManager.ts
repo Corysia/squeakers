@@ -53,8 +53,8 @@ export class SceneManager {
                     this.scene.debugLayer.show();
                 }
             }
-            // shift-ctrl-alt-F
-            if (ev.shiftKey && ev.keyCode === 70) {
+            // Shift-Ctrl-F to toggle fullscreen
+            if (ev.shiftKey && ev.ctrlKey && ev.keyCode === 70) {
                 this.engine.switchFullscreen(false);
             }
 

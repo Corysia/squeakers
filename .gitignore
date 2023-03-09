@@ -2,9 +2,6 @@
 node_modules
 /dist
 
-# Custom deploy script
-deploy.sh
-
 # archives
 *.tar
 *.tar.gz
