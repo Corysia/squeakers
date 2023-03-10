@@ -2,6 +2,7 @@ const path = require("path");
 const fs = require("fs");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
+// const CompressionPlugin = require("compression-webpack-plugin");
 const appDirectory = fs.realpathSync(process.cwd());
 
 module.exports = {
@@ -36,6 +37,7 @@ module.exports = {
                 { from: "resources", noErrorOnMissing: true },
             ],
         }),
+        // new CompressionPlugin(),
     ],
     mode: "production", //tells webpack to run in production mode
 };
