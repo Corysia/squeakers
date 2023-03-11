@@ -27,7 +27,7 @@ Controls:
 
 - WASD or Arrow keys to move
 - Right click and drag the mouse to pan the camera
-- Shift-F to toggle Fullscreen mode
+- Ctrl-Shift-F to toggle Fullscreen mode
 
 ## How to build
 
