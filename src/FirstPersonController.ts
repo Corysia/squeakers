@@ -9,6 +9,8 @@ export class FirstPersonController {
         console.debug("FirstPersonController");
         this.scene = scene;
         this.camera = new FreeCamera("FirstPersonController", location, scene);
+        this.camera.inputs.addMouse();
+        this.camera.inputs._mouseInput.buttons = [2];
         this.camera.setTarget(Vector3.Zero());
         this.camera.attachControl(canvas, true);
         this.camera.speed = 0.5;
