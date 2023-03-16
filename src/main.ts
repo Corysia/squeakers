@@ -6,6 +6,7 @@ import { Scene, Vector3, HemisphericLight } from "@babylonjs/core";
 import { SceneManager } from "./SceneManager";
 import { Backtracker } from "./Backtracker";
 import { FirstPersonController } from "./FirstPersonController";
+import { Sprite } from "./Mixin";
 
 class Main {
 
@@ -17,6 +18,10 @@ class Main {
         this.main().catch((err) => {
             console.error(err);
         });
+
+        let player = new Sprite();
+        player.jump();
+        player.duck();
     }
 
     private async main(): Promise<void> {
