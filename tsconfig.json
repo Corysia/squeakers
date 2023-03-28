@@ -11,6 +11,11 @@
         "dom",
         "es6"
     ],
-    "rootDir": "src"
-  }
+    "rootDir": "src",
+  },
+  "exclude": [
+    "./tests/",
+    "./node_modules/",
+    "./dist/"
+  ],
 }
