@@ -25,7 +25,6 @@ class Main {
     }
 
     private async main(): Promise<void> {
-        // await this.goToStart();
         await this.GenerateMaze();
         this.sceneManager.StartRenderLoop();
     }
@@ -39,8 +38,8 @@ class Main {
 
         let scene = new Scene(engine);
         
-        const hemiLight: HemisphericLight = new HemisphericLight('hemiLight', new Vector3(1, .5, 0), scene);
-        hemiLight.intensity = 0.7;
+        const hemisphericLight: HemisphericLight = new HemisphericLight('HemisphericLight', new Vector3(1, .5, 0), scene);
+        hemisphericLight.intensity = 0.7;
 
         maze.Draw(scene);
 

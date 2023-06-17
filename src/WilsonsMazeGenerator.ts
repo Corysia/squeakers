@@ -16,7 +16,6 @@ export class WilsonsMazeGenerator extends MazeGenerator {
 
     public override Generate(): void {
         console.debug("Generate");
-        // super.Generate();
         let x = MathUtil.RandomRange(2, this.width - 2)
         let z = MathUtil.RandomRange(2, this.depth - 2)
         this.startLocation = new MapLocation(x, z);
@@ -80,13 +79,13 @@ export class WilsonsMazeGenerator extends MazeGenerator {
         }
         if (validPath) {
             this.map[x][z] = 0;
-            for (let i = 0; i < inWalk.length; i++) {
-                this.map[inWalk[i].X][inWalk[i].Z] = 2;
+            for (const element of inWalk) {
+                this.map[element.X][element.Z] = 2;
             }
             this.stalemateCount = 0;
         } else {
-            for (let i = 0; i < inWalk.length; i++) {
-                this.map[inWalk[i].X][inWalk[i].Z] = 1;
+            for (const element of inWalk) {
+                this.map[element.X][element.Z] = 1;
             }
             this.stalemateCount++;
         }

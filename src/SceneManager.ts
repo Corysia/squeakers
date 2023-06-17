@@ -46,15 +46,18 @@ export class SceneManager {
         window.addEventListener("keydown", (ev) => {
             // Shift+Ctrl+Alt+I
             // keyCode 73 = I, need to use this because ev.key === "I" doesn't work on a Mac
-            if (ev.shiftKey && ev.ctrlKey && ev.altKey && ev.keyCode === 73) {
+            if (ev.shiftKey && ev.ctrlKey && ev.altKey && ev.code === "KeyI") {
                 if (this.scene.debugLayer.isVisible()) {
                     this.scene.debugLayer.hide();
                 } else {
-                    this.scene.debugLayer.show();
+                    this.scene.debugLayer.show().catch((err) => {
+                        console.error(err);
+                        this.scene.debugLayer.hide();
+                    });
                 }
             }
             // Shift-Ctrl-F to toggle fullscreen
-            if (ev.shiftKey && ev.ctrlKey && ev.keyCode === 70) {
+            if (ev.shiftKey && ev.ctrlKey && ev.code === "KeyF") {
                 this.engine.switchFullscreen(false);
             }
 
@@ -62,7 +65,7 @@ export class SceneManager {
     }
 
     private CreateCanvas(): HTMLCanvasElement {
-        var canvas = document.createElement("canvas");
+        const canvas = document.createElement("canvas");
         canvas.style.width = "100%";
         canvas.style.height = "100%";
         canvas.id = "gameCanvas";
